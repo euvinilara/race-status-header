@@ -1,0 +1,152 @@
+[
+  {
+    "id": "acao",
+    "valid": true,
+    "header": "🟢 ⚑ Executando · Próximo: conferir arquivo · Vez: Kairos",
+    "evidence": {
+      "action_confirmed": true
+    },
+    "explanation": "Leitura confirmada em andamento."
+  },
+  {
+    "id": "pre_tool",
+    "valid": true,
+    "header": "🟢 ⚑ Executando · Próximo: ler arquivo · Vez: Kairos",
+    "evidence": {
+      "tool_same_response": true
+    },
+    "explanation": "A chamada ocorre nesta resposta."
+  },
+  {
+    "id": "decisao",
+    "valid": true,
+    "header": "🟡 ⚑ Aguardando você · Próximo: escolher opção · Vez: você",
+    "evidence": {
+      "human_required": true
+    },
+    "explanation": "Escolha humana necessária."
+  },
+  {
+    "id": "bloqueio",
+    "valid": true,
+    "header": "🔴 ⚑ Bloqueado · Próximo: renovar acesso · Vez: você",
+    "evidence": {
+      "block_confirmed": true
+    },
+    "explanation": "Credencial expirada confirmada; pessoa controla renovação."
+  },
+  {
+    "id": "entrega",
+    "valid": true,
+    "header": "🏁 Concluído · Entrega: rascunho revisado",
+    "evidence": {
+      "verified": true,
+      "agent_pending": false
+    },
+    "explanation": "Entrega local, não publicação."
+  },
+  {
+    "id": "conversa",
+    "valid": true,
+    "header": "💬 Em conversa",
+    "evidence": {
+      "exploration": true
+    },
+    "explanation": "Ideias sem tarefa."
+  },
+  {
+    "id": "paralelo",
+    "valid": true,
+    "header": "🏁 Concluído · Entrega: rascunho revisado",
+    "evidence": {
+      "verified": true,
+      "agent_pending": false,
+      "other_task_open": true
+    },
+    "explanation": "Nota: outra frente tem execução confirmada e resultado pendente; não encerra projeto."
+  },
+  {
+    "id": "recibo",
+    "valid": false,
+    "header": "🏁 Concluído · Entrega: projeto",
+    "evidence": {
+      "receipt_only": true
+    },
+    "explanation": "Despacho não é entrega verificada."
+  },
+  {
+    "id": "running",
+    "valid": false,
+    "header": "🟢 ⚑ Executando · Próximo: finalizar · Vez: Kairos",
+    "evidence": {
+      "running_only": true
+    },
+    "explanation": "Rótulo running isolado não prova ação/progresso."
+  },
+  {
+    "id": "plano",
+    "valid": false,
+    "header": "🟢 ⚑ Executando · Próximo: iniciar · Vez: Kairos",
+    "evidence": {
+      "plan_only": true
+    },
+    "explanation": "Promessa encerra sem ferramenta."
+  },
+  {
+    "id": "espera_falsa",
+    "valid": false,
+    "header": "🟡 ⚑ Aguardando você · Próximo: revisar · Vez: você",
+    "evidence": {
+      "human_required": false
+    },
+    "explanation": "Agente pode continuar sem input."
+  },
+  {
+    "id": "bloqueio_oculto",
+    "valid": false,
+    "header": "🟡 ⚑ Aguardando você · Próximo: renovar acesso · Vez: você",
+    "evidence": {
+      "human_required": true,
+      "block_confirmed": true
+    },
+    "explanation": "Impedimento técnico confirmado exige Bloqueado."
+  },
+  {
+    "id": "pendencia",
+    "valid": false,
+    "header": "🏁 Concluído · Entrega: projeto",
+    "evidence": {
+      "verified": true,
+      "agent_pending": true
+    },
+    "explanation": "Só subtarefa foi concluída."
+  },
+  {
+    "id": "mock_producao",
+    "valid": false,
+    "header": "🏁 Concluído · Entrega: produção validada",
+    "evidence": {
+      "verified": true,
+      "agent_pending": false,
+      "mock_only": true,
+      "claims_production": true
+    },
+    "explanation": "Mock não prova produção."
+  },
+  {
+    "id": "cor_sozinha",
+    "valid": false,
+    "header": "🟢",
+    "evidence": {
+      "action_confirmed": true
+    },
+    "explanation": "Falta informação textual."
+  },
+  {
+    "id": "bloqueio_inventado",
+    "valid": false,
+    "header": "🔴 ⚑ Bloqueado · Próximo: diagnosticar · Vez: Kairos",
+    "evidence": {},
+    "explanation": "Sem impedimento confirmado."
+  }
+]
