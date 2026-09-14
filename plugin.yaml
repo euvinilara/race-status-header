@@ -1,0 +1,9 @@
+name: race-status-header
+version: 0.2.0
+description: Evidence-based conversation status headers (opt-in).
+author: Vinicius Lara (euvinilara), Hermes Agent
+license: MIT
+homepage: https://github.com/euvinilara/race-status-header
+provides_tools: []
+provides_hooks: []
+capabilities: []

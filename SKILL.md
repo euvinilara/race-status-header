@@ -1,7 +1,7 @@
 ---
 name: race-status-header
 description: Use para sinalizar estado e vez em conversas.
-version: 0.1.0
+version: 0.2.0
 author: Vinicius Lara (euvinilara), Hermes Agent
 license: MIT
 platforms: [linux, macos, windows]
@@ -15,7 +15,9 @@ metadata:
 
 Convenção comportamental de cabeçalhos baseada em evidências disponíveis.
 Não é monitor, processo em segundo plano nem garantia de execução ou progresso.
-Sem dependências para uso; Python padrão é opcional para os testes estáticos.
+Sem dependências para uso manual; o plugin opcional exige Hermes compatível.
+Instalação e ativação por perfil: consultar `README.md`. Publicar ou copiar a
+skill não ativa um processo já iniciado nem reescreve sessões existentes.
 
 ## Quando usar
 

@@ -47,7 +47,7 @@ class StaticContract(unittest.TestCase):
         self.assertLessEqual(len(fields['description']), 60)
         self.assertTrue(fields['description'].endswith('.'))
         self.assertNotIn(':', fields['description'])
-        self.assertEqual(fields['version'], '0.1.0')
+        self.assertEqual(fields['version'], '0.2.0')
         self.assertEqual(fields['author'],
                          'Vinicius Lara (euvinilara), Hermes Agent')
         self.assertEqual(fields['license'], 'MIT')
@@ -74,7 +74,9 @@ class StaticContract(unittest.TestCase):
 
     def test_package_scope(self):
         self.assertEqual({p.name for p in ROOT.iterdir() if not p.name.startswith('.') and p.name != '__pycache__'},
-                         {'SKILL.md', 'README.md', 'examples.json', 'test_static.py', 'LICENSE'})
+                         {'SKILL.md', 'README.md', 'examples.json', 'test_static.py', 'LICENSE',
+                          '__init__.py', 'plugin.yaml', 'install.py', 'test_plugin.py',
+                          'test_install.py', 'probe_runtime.py', 'CHANGELOG.md'})
         readme = (ROOT / 'README.md').read_text(encoding='utf-8')
         self.assertIn('**Licença:** MIT', readme)
         self.assertIn('github.com/euvinilara/race-status-header', readme)
