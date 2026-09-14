@@ -108,8 +108,9 @@ hermes plugins enable race-status-header --no-allow-tool-override
 ```
 
 Substitua o marcador pelo SHA completo de 40 caracteres de um commit v0.2+;
-não é uma tag nem abreviação. Este comando faz rede e o scanner nativo; não foi
-exercitado como instalação remota neste pacote. O instalador nativo recusa um
+não é uma tag nem abreviação. Este comando faz rede e o scanner nativo. A instalação remota foi exercitada em Linux
+no commit indicado na [nota de verificação](#verificação-da-instalação-nativa--linux);
+os resultados e limites não se estendem automaticamente a outras versões ou ambientes. O instalador nativo recusa um
 destino existente: use o helper local para o no-op de conteúdo idêntico. Não use
 `--force` para contornar divergência sem revisar e preservar o que já existe.
 Se o CLI sugerir reiniciar o gateway, **não é necessário fazê-lo agora**: aguarde
@@ -207,3 +208,63 @@ portabilidade Python não equivale a testes em macOS/Windows.
 Antes de alegar adoção real, confira uma resposta real da superfície desejada,
 com evidência, escopo, próxima ação/dono e exceções. Nunca converta sucesso do
 probe em garantia permanente do modelo. Veja [CHANGELOG.md](CHANGELOG.md).
+
+## Verificação da instalação nativa — Linux
+
+Registro preparado por Kairos (Hermes Agent), a partir de execução em ambiente isolado. Este documento descreve um teste delimitado, não certificação de segurança nem garantia de comportamento de modelos.
+
+### Versões verificadas
+
+- Race Status Header: commit `76e48c952d1ec54f5480cb0b28a01a42e972242f`.
+- Hermes: versão informada pelo CLI `0.21.1`, checkout `e7eaff6845170b4523499f9096d4242b607b60a2`.
+- Python: `3.11.16`.
+- Plataforma: Linux x86_64.
+
+O HOME e o HERMES_HOME do teste foram isolados. Nenhum perfil de uso real foi habilitado, nenhum gateway foi reiniciado e nenhum turno de modelo foi executado.
+
+### O que foi exercitado
+
+Instalação do commit público pelo instalador Git nativo:
+
+```sh
+hermes plugins install euvinilara/race-status-header --ref 76e48c952d1ec54f5480cb0b28a01a42e972242f --no-enable
+```
+
+Este comando foi executado com o ambiente apontando explicitamente ao perfil de teste. O SHA acima identifica a versão ensaiada, não uma recomendação automática para ignorar correções posteriores.
+
+Resultados observados:
+
+- Instalação concluída sem habilitação implícita; arquivos instalados conferidos contra o commit revisado.
+- Repetir a instalação nativa recusou o destino existente, conforme documentado. Isso não é o no-op do helper local.
+- Enable repetido preservou uma única entrada de configuração, sem permitir override de ferramentas.
+- Manager e construtor de prompt reais apresentaram a sequência **0 → 1 → 0** ocorrências da orientação: antes de habilitar, após habilitar e após desabilitar em novos managers/processos.
+- Disable repetido preservou a configuração.
+- Snapshots de prompts anteriores permaneceram byte-idênticos; o ensaio não forçou atualização de sessões existentes.
+- **35 verificações de instalação/carregamento e 24 casos adicionais de segurança em temporários passaram.** Estes números correspondem ao harness externo do ensaio, não à suíte distribuída no repositório.
+
+O scanner nativo não foi contornado. Uma nova varredura do payload instalado retornou `safe`, com sete findings de nível médio relacionados a subprocessos nos arquivos de testes/probe. Esse resultado não significa ausência universal de riscos.
+
+### Falha encontrada e correção posterior
+
+No commit inicialmente ensaiado, a suíte pública teve **23 testes aprovados e uma falha**: `test_package_scope` ainda não incluía a pasta `assets`, adicionada com o banner.
+
+A correção foi integrada pelo [PR #2](https://github.com/euvinilara/race-status-header/pull/2), no commit `9636c7eb20872da14712c330f2381696ea4b2b0e`. O teste passou a reconhecer a pasta e verificar o arquivo esperado, a assinatura PNG, a referência no README e a ausência de symlinks nesses caminhos.
+
+A suíte pública foi executada novamente sobre o checkout atualizado desse commit: **24 testes aprovados, zero falhas**.
+
+```sh
+python3 -B -m unittest -v test_static.py test_plugin.py test_install.py
+```
+
+A instalação nativa completa não foi repetida no commit corrigido. Os resultados do lifecycle continuam vinculados ao primeiro SHA; a correção posterior alterou somente o teste estático.
+
+### Limites
+
+- Não houve inferência de modelo, turno de conversa ou envio em mensageria.
+- Não foram testados macOS, Windows, retomada SQLite ponta a ponta ou sessões concorrentes de produção.
+- Carregar uma orientação no prompt não garante que o modelo a siga.
+- As tentativas de consulta de metadata durante o probe de prompt foram bloqueadas e registradas; não houve resposta de modelo simulada.
+- Não houve teste do cache do provedor ou garantia de hot-load.
+- A ausência de diferenças nos cinco caminhos operacionais monitorados não equivale a auditoria de imutabilidade de todo o host.
+
+O plugin terminou desabilitado no perfil de laboratório e os processos temporários foram encerrados. Logs brutos, configurações e caminhos privados do ambiente de teste não integram esta nota pública.
