@@ -9,6 +9,12 @@
 
 > Você não deveria precisar perguntar ao agente se ele está trabalhando ou esperando por você.
 
+## Por onde começar
+
+- **Quero entender a ideia:** veja os [exemplos](#exemplos-rápidos-sintéticos).
+- **Quero experimentar sem plugin:** veja o [uso manual](#uso-manual-sem-plugin). Carregue o SKILL.md na conversa; a adoção depende do assistente seguir a orientação.
+- **Quero instalar no Hermes:** siga a [instalação por perfil](#instalação-opt-in-por-perfil). Revise o código e confirme o perfil de destino antes de habilitar.
+
 ## Origem e proposta
 
 Vini ficou sem saber se Kairos estava executando ou aguardando uma resposta.
@@ -19,7 +25,7 @@ sem fazer da corrida uma cobrança. Não inclui transcrições ou dados privados
 A primeira linha acompanha cada mensagem textual da conversa, salvo formatos
 exatos, schemas de ferramentas e instruções superiores. O estado depende de
 evidências: não é telemetria, monitor, processo ou garantia de progresso.
-Sem imagens, integrações de mensageria, APIs externas ou alterações de infraestrutura.
+O funcionamento da convenção não depende de imagens, integrações de mensageria ou APIs externas, nem requer alterações de infraestrutura.
 Sem dependências de monitoramento; o helper opcional usa somente Python padrão.
 
 ## Exemplos rápidos (sintéticos)
