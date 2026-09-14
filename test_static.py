@@ -76,7 +76,18 @@ class StaticContract(unittest.TestCase):
         self.assertEqual({p.name for p in ROOT.iterdir() if not p.name.startswith('.') and p.name != '__pycache__'},
                          {'SKILL.md', 'README.md', 'examples.json', 'test_static.py', 'LICENSE',
                           '__init__.py', 'plugin.yaml', 'install.py', 'test_plugin.py',
-                          'test_install.py', 'probe_runtime.py', 'CHANGELOG.md'})
+                          'test_install.py', 'probe_runtime.py', 'CHANGELOG.md', 'assets'})
+        assets = ROOT / 'assets'
+        self.assertFalse(assets.is_symlink())
+        self.assertTrue(assets.is_dir())
+        self.assertEqual({p.name for p in assets.iterdir()},
+                         {'race-status-banner.png'})
+        banner = assets / 'race-status-banner.png'
+        self.assertFalse(banner.is_symlink())
+        self.assertTrue(banner.is_file())
+        self.assertTrue(banner.read_bytes().startswith(b'\x89PNG\r\n\x1a\n'))
+        self.assertIn('](assets/race-status-banner.png)',
+                      (ROOT / 'README.md').read_text(encoding='utf-8'))
         readme = (ROOT / 'README.md').read_text(encoding='utf-8')
         self.assertIn('**Licença:** MIT', readme)
         self.assertIn('github.com/euvinilara/race-status-header', readme)
