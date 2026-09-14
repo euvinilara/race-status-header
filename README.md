@@ -1,5 +1,7 @@
 # race-status-header
 
+![Race Status Header: exemplo ilustrativo com estado Executando, próxima ação conferir arquivo e vez de Kairos. Não é telemetria.](assets/race-status-banner.png)
+
 **Autoria:** Vinicius Lara (euvinilara), com Hermes Agent.
 **Versão:** 0.2.0 — convenção visual com plugin opt-in para Hermes.
 **Licença:** MIT. Consulte [LICENSE](LICENSE).
